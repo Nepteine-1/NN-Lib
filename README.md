@@ -1,3 +1,6 @@
+# NN-Lib
+A library dedicated to the creation and training of neural networks, made from scratch
+
 ## Required packages
 ```bash
 sudo apt install cmake
