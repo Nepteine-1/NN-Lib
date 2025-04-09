@@ -1,5 +1,5 @@
 # NN-Lib
-A library dedicated to the creation and training of neural networks, made from scratch
+A library dedicated to the creation and training of neural networks, made from scratch.
 
 ## Required packages
 ```bash
@@ -8,7 +8,7 @@ sudo apt install libsfml-dev
 ```
 
 ## Installation
-Use the following command pattern to launch the installation
+Use the following command pattern to launch the installation.
 ```bash
 sh install.sh target build_mode
 ```
@@ -31,20 +31,20 @@ sh install.sh dev debug
 # sh install.sh - Valid
 ```
 
-In the case where __target=example__, build the static library in release mode before using this target because the example project (in 'example' directory) use it
+In the case where __target=example__, build the static library in release mode before using this target because the example project (in 'example' directory) use it.
 ```bash
 sh install.sh static release
 sh install.sh example
 ```
 
-Then the binairies will appear in the "bin" directory
+Then the binairies will appear in the "bin" directory.
 
 ## Documentation
 
 ### Create a neural network
 Create a new neural network.
 it is possible to choose the loss function. Currently, only BINARY_CROSS_ENTROPY is available.
-In the following example, an empty neural network with 2 entry neurons is created
+In the following example, an empty neural network with 2 entry neurons is created.
 ```cpp
 // NeuralNetwork(const int number_of_features, const LossFunction loss_type);
 nn = new NeuralNetwork(2, LossFunction::BINARY_CROSS_ENTROPY);
@@ -62,7 +62,7 @@ nn->addLayer(1, Activation::SIGMOID);
 ```
 
 ### Generate training/test data
-Generate data following a pattern
+Generate data following a pattern.
 ```cpp
 // void generateData_Linear(Matrix& X_feature,Matrix& Y_class);
 // void generateData_Circle(Matrix& X_feature,Matrix& Y_class);
@@ -74,7 +74,7 @@ generateData_Circle(X_train, Y_train);
 ```
 
 ### Train
-Train the neural network with the given train data
+Train the neural network with the given train data.
 ```cpp
 // void train(const Matrix& X_train, const Matrix& Y_train, const int epoch=1, const float learning_rate=1.0f, const bool show_result=true);
 // 'show_result' is a deprecated argument
@@ -82,7 +82,7 @@ nn->train(X_train,Y_train, 1000, 1.1f,true);
 ```
 
 ### Predict
-Make predictions with the given test data
+Make predictions with the given test data.
 ```cpp
 // Matrix predict(const Matrix& X_test, const Matrix& Y_test);
 int data_number_test{250};
@@ -93,9 +93,20 @@ nn->predict(X_test, Y_test);
 ```
 
 ### Clear the neural network
-Remove all the layers of the neural network
+Remove all the layers of the neural network.
 ```cpp
 // void clear(void);
 nn->clear();
 ```
 
+## Build with Docker
+It is now possible to compile the library into a Docker container without installing the dependencies on your machine.
+
+Docker must be installed first, then type the following commands:
+
+```bash
+docker build -t nn-lib_image:v1.0 .
+docker run -ti --rm -u nn-lib nn-lib_image:v1.0
+```
+
+The docker image configured in the Dockerfile will compile the library in static mode and run the 'example' project.
