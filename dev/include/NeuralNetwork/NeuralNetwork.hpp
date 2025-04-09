@@ -14,10 +14,10 @@ enum Activation {SIGMOID, RELU, ELU};
 enum LossFunction {BINARY_CROSS_ENTROPY};
 
         // GENERATE DATA
-void generateData_Linear(Matrix& X_feature,Matrix& Y_class);
-void generateData_Circle(Matrix& X_feature,Matrix& Y_class);
-void generateData_Balanced(Matrix& X_feature,Matrix& Y_class);
-void generateData_3Class(Matrix& X_feature,Matrix& Y_class);
+void generateData_Linear(Matrix& X_feature,Matrix& Y_class, const bool& verbose=false);
+void generateData_Circle(Matrix& X_feature,Matrix& Y_class, const bool& verbose=false);
+void generateData_Balanced(Matrix& X_feature,Matrix& Y_class, const bool& verbose=false);
+void generateData_3Class(Matrix& X_feature,Matrix& Y_class, const bool& verbose=false);
 
 void saveData(const Matrix& train_X, const Matrix& train_Y, const Matrix& test_X, const Matrix& test_Y, std::string outputFileName="data.txt");
 void loadData( Matrix& train_X, Matrix& train_Y, Matrix& test_X, Matrix& test_Y, std::string inputFileName="data.txt");
@@ -78,7 +78,5 @@ class NeuralNetwork {
         Matrix (NeuralNetwork::* Loss) (const Matrix&, const Matrix&);
         Matrix (NeuralNetwork::* LossDerivate) (const Matrix&, const Matrix&);
 };
-
-
 
 #endif

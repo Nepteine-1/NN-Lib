@@ -148,6 +148,11 @@ void NeuralNetwork::train(const Matrix& X_train, const Matrix& Y_train, const in
         #ifdef DEBUG
             res.disp();
             DEBUG_MSG("Train " << (float(iter)/float(epoch))*100.f << "%");
+        #else
+            if(show_result) {
+                std::cout << "Train " << (float(iter)/float(epoch))*100.f << "%" << std::endl;
+                res.disp();
+            }
         #endif
 
         // Back propagation
@@ -176,7 +181,12 @@ void NeuralNetwork::train(const Matrix& X_train, const Matrix& Y_train, const in
         }
     }
 
-    DEBUG_MSG("FINISH_TRAINING");
+    #ifdef DEBUG
+        DEBUG_MSG("FINISH_TRAINING");
+    #else
+        if(show_result) { std::cout << "FINISH_TRAINING" << std::endl;}
+    #endif
+    
 }
 
 Matrix NeuralNetwork::predict(const Matrix& X_test, const Matrix& Y_test) {
@@ -350,7 +360,7 @@ Matrix NeuralNetwork::RELUDerivate(const Matrix& Z) {
 // This function generate linearly separable data with 2 class
 // X_feature max dim : row=2, col= nb_of_data
 // Y_class max dim: row=1, col=nb_of_data
-void generateData_Linear(Matrix& X_feature,Matrix& Y_class) {
+void generateData_Linear(Matrix& X_feature,Matrix& Y_class, const bool& verbose) {
     DEBUG_MSG_S("GENERATE_DATA(Linear)");
     const float a{-1.4f}, b{1.0f}, c{0.3f};
     const float zoom{500.f};
@@ -369,15 +379,17 @@ void generateData_Linear(Matrix& X_feature,Matrix& Y_class) {
             Y_class.setCoeff(0,i,1);
         }
     }
-    /*std::cout << "data created [class 0: " << nb_of_class0 << "(" << ((float)nb_of_class0/(float)X_feature.col())*100.f <<"%)]" << std::endl;
-    std::cout << std::setw(23)<< " [class 1: " << X_feature.col() - nb_of_class0 << "(" << ((float)(X_feature.col() - nb_of_class0)/(float)X_feature.col())*100.f <<"%)]" << std::endl; */ 
+    if(verbose) {
+        std::cout << "data created [class 0: " << nb_of_class0 << "(" << ((float)nb_of_class0/(float)X_feature.col())*100.f <<"%)]" << std::endl;
+        std::cout << std::setw(23)<< " [class 1: " << X_feature.col() - nb_of_class0 << "(" << ((float)(X_feature.col() - nb_of_class0)/(float)X_feature.col())*100.f <<"%)]" << std::endl;
+    }
     DEBUG_MSG_D();
 }
 
 // This function generate non linearly separable data with 2 class
 // X_feature max dim : row=2, col= nb_of_data
 // Y_class max dim: row=1, col=nb_of_data
-void generateData_Circle(Matrix& X_feature,Matrix& Y_class) {
+void generateData_Circle(Matrix& X_feature,Matrix& Y_class, const bool& verbose) {
     DEBUG_MSG_S("GENERATE_DATA(Circle)");
     const float r{0.4f}, x{0.5f}, y{0.5f};
     const float zoom{500.f};
@@ -395,15 +407,17 @@ void generateData_Circle(Matrix& X_feature,Matrix& Y_class) {
             Y_class.setCoeff(0,i,1);
         }
     }
-    /*std::cout << "data created [class 0: " << nb_of_class0 << "(" << ((float)nb_of_class0/(float)X_feature.col())*100.f <<"%)]" << std::endl;
-    std::cout << std::setw(23)<< " [class 1: " << X_feature.col() - nb_of_class0 << "(" << ((float)(X_feature.col() - nb_of_class0)/(float)X_feature.col())*100.f <<"%)]" << std::endl; */
+    if(verbose) {
+        std::cout << "data created [class 0: " << nb_of_class0 << "(" << ((float)nb_of_class0/(float)X_feature.col())*100.f <<"%)]" << std::endl;
+        std::cout << std::setw(23)<< " [class 1: " << X_feature.col() - nb_of_class0 << "(" << ((float)(X_feature.col() - nb_of_class0)/(float)X_feature.col())*100.f <<"%)]" << std::endl;
+    }
     DEBUG_MSG_D();
 }
 
 // This function generate non linearly separable data with 2 class
 // X_feature max dim : row=2, col= nb_of_data
 // Y_class max dim: row=1, col=nb_of_data
-void generateData_Balanced(Matrix& X_feature,Matrix& Y_class) {
+void generateData_Balanced(Matrix& X_feature,Matrix& Y_class, const bool& verbose) {
     DEBUG_MSG_S("GENERATE_DATA(Balanced)");
     const float r{0.4f}, x{0.5f}, y{0.5f};
     const float zoom{500.f};
@@ -421,15 +435,18 @@ void generateData_Balanced(Matrix& X_feature,Matrix& Y_class) {
             Y_class.setCoeff(0,i,1);
         }
     }
-    /*std::cout << "data created [class 0: " << nb_of_class0 << "(" << ((float)nb_of_class0/(float)X_feature.col())*100.f <<"%)]" << std::endl;
-    std::cout << std::setw(23)<< " [class 1: " << X_feature.col() - nb_of_class0 << "(" << ((float)(X_feature.col() - nb_of_class0)/(float)X_feature.col())*100.f <<"%)]" << std::endl;*/  
+    if(verbose) {
+        std::cout << "data created [class 0: " << nb_of_class0 << "(" << ((float)nb_of_class0/(float)X_feature.col())*100.f <<"%)]" << std::endl;
+        std::cout << std::setw(23)<< " [class 1: " << X_feature.col() - nb_of_class0 << "(" << ((float)(X_feature.col() - nb_of_class0)/(float)X_feature.col())*100.f <<"%)]" << std::endl;
+    }
+    
     DEBUG_MSG_D();
 }
 
 // This function generate non linearly separable data with 3 class
 // X_feature max dim : row=2, col= nb_of_data
 // Y_class max dim: row=3, col=nb_of_data
-void generateData_3Class(Matrix& X_feature,Matrix& Y_class) {
+void generateData_3Class(Matrix& X_feature,Matrix& Y_class, const bool& verbose) {
     DEBUG_MSG_S("GENERATE_DATA(3Class)");
     int nb_of_class0=0;
     int nb_of_class1=0;
@@ -458,9 +475,11 @@ void generateData_3Class(Matrix& X_feature,Matrix& Y_class) {
             nb_of_class2++;
         }
     }
-    /*std::cout << "data created [class 0: " << nb_of_class0 << "(" << ((float)nb_of_class0/(float)X_feature.col())*100.f <<"%)]" << std::endl;
-    std::cout << std::setw(23)<< " [class 1: " << nb_of_class1 << "(" << ((float)nb_of_class1/(float)X_feature.col())*100.f <<"%)]" << std::endl;  
-    std::cout << std::setw(23)<< " [class 2: " << nb_of_class2 << "(" << ((float)nb_of_class2/(float)X_feature.col())*100.f <<"%)]" << std::endl;*/  
+    if(verbose) {
+        std::cout << "data created [class 0: " << nb_of_class0 << "(" << ((float)nb_of_class0/(float)X_feature.col())*100.f <<"%)]" << std::endl;
+        std::cout << std::setw(23)<< " [class 1: " << nb_of_class1 << "(" << ((float)nb_of_class1/(float)X_feature.col())*100.f <<"%)]" << std::endl;  
+        std::cout << std::setw(23)<< " [class 2: " << nb_of_class2 << "(" << ((float)nb_of_class2/(float)X_feature.col())*100.f <<"%)]" << std::endl;
+    }
     DEBUG_MSG_S("GENERATE_DATA(3Class)");
 }
 

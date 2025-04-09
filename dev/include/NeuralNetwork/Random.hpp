@@ -3,7 +3,7 @@
 
 #include <math.h>
 
-inline float randomf(float Min, float Max) // Renvoie un nombre entier dans l'intervalle [Min;Max]
+inline float randomf(float Min, float Max)
 {
     float offset=0;
     if(abs(Min) > 0) { offset = Min; }
@@ -11,7 +11,7 @@ inline float randomf(float Min, float Max) // Renvoie un nombre entier dans l'in
     return res + offset;
 }
 
-inline int randomi(int Min, int Max) // Renvoie un nombre entier dans l'intervalle [Min;Max]
+inline int randomi(int Min, int Max)
 {
     int offset=0;
     if(abs(Min) > 0) { offset = Min; }
