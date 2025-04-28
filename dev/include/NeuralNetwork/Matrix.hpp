@@ -9,40 +9,43 @@
 
 class Matrix
 {
-public :
-	
-	Matrix(std::size_t, std::size_t);
-	Matrix(std::size_t, std::size_t, float value);
-	Matrix(const std::vector<float>, bool);
+	public :
+		Matrix(std::size_t, std::size_t);
+		Matrix(std::size_t, std::size_t, float value);
+		Matrix(const std::vector<float>&, bool);
+		Matrix(const std::vector<std::vector<float>>& initialData);
 
-	void setCoeff(std::size_t, std::size_t, const float);
-	float getCoeff(std::size_t, std::size_t) const;
-	std::size_t row() const;
-	std::size_t col() const;
-	
-	Matrix operator+(const Matrix&) const;
-	Matrix operator*(const Matrix&) const;
-	void operator-=(const Matrix&);
-	void operator+(float value);
-	void operator*(float value);
-	void merge(const Matrix&);
-	
-	Matrix transposee() const;
-	Matrix diag() const;
-	
-	void constMult(float);
-	void applySigmo();
-	void applyLog();
-	void applySigmoPrime();
-	
-	void disp() const; // Debug function
-	
-private :
-	std::size_t m_row;
-	std::size_t m_col;
-	std::vector<std::vector<float>> m_mat;
+		void setCoeff(std::size_t, std::size_t, const float);
+		float getCoeff(std::size_t, std::size_t) const;
+		std::size_t row() const;
+		std::size_t col() const;
+		
+		Matrix operator+(const Matrix&) const;
+		Matrix operator*(const Matrix&) const;
+		void operator-=(const Matrix&);
+		void operator+(float value);
+		void operator*(float value);
+		void merge(const Matrix&);
+		
+		Matrix transposee() const;
+		Matrix diag() const;
+		
+		void constMult(float);
+		void applySigmo();
+		void applyLog();
+		void applySigmoPrime();
+		
+		void disp() const; // Debug function
+
+	private :
+		std::size_t m_row;
+		std::size_t m_col;
+		std::vector<std::vector<float>> m_mat;
+
+	friend bool operator==(const Matrix& A, const Matrix& B);
 };
 
+bool operator==(const Matrix& A, const Matrix& B);
 Matrix Hadamard(const Matrix& A, const Matrix& B);
 Matrix BroadCastAdd(const Matrix& A, const Matrix& B);
 Matrix SumOnCol(const Matrix& A);

@@ -1,5 +1,17 @@
 #include <NeuralNetwork/Matrix.hpp>
 
+Matrix::Matrix(const std::vector<std::vector<float>>& initialData):
+m_mat(initialData) 
+{
+	if(initialData.size()!=0) {
+		m_row=initialData.size();
+		m_col=initialData[0].size();
+	} else {
+		m_row=0;
+		m_col=0;
+	}
+}
+
 Matrix::Matrix(std::size_t row, std::size_t col)
 : m_row(row)
 , m_col(col)
@@ -20,7 +32,7 @@ Matrix::Matrix(std::size_t row, std::size_t col, float value)
 }
 
 
-Matrix::Matrix(std::vector<float> values, bool isDiag = false)
+Matrix::Matrix(const std::vector<float>& values, bool isDiag = false)
 {
 	if(isDiag)
 	{
@@ -128,6 +140,28 @@ Matrix Matrix::operator*(const Matrix& B) const
 	}
 	
 	return(mat);
+}
+
+// used with == operator to avoid precision issues
+bool areEqual(float a, float b, float tolerance = 1e-5) {
+    return std::fabs(a - b) < tolerance;
+}
+
+bool operator==(const Matrix& A, const Matrix& B) {
+	if (A.m_row != B.m_row || A.m_col != B.m_col) {
+		return false;
+	}
+
+	for(std::size_t i = 0; i < A.m_row; ++i)
+	{
+		for(std::size_t j = 0; j < A.m_col; ++j) {
+			if(!areEqual(A.getCoeff(i,j), B.getCoeff(i,j))) {
+				return false;
+			}
+		}
+	}
+
+	return true;
 }
 
 Matrix Hadamard(const Matrix& A, const Matrix& B) {
@@ -290,12 +324,10 @@ void Matrix::disp() const //Debug function
 	{
 		for (std::size_t j = 0; j < m_col; ++j)
 		{
-			std::cout << m_mat[i][j] << " / ";
+			std::cout << m_mat[i][j] << ",";
 		}
-		std::cout << std::endl;
+		if(i<m_row-1) std::cout << std::endl;
 	}
-	
-	std::cout << "----------------------------------" <<  std::endl;
 }
 
 Matrix BroadCastAdd(const Matrix& A, const Matrix& B) {
