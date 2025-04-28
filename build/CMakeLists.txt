@@ -1,5 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
-set(CMAKE_CXX_STANDARD 14)
+set(CMAKE_CXX_STANDARD 14) # C++14 mandatory for GoogleTest
+
 # Very important, otherwise your executable will be considered as a shared library by your OS and not as an executable
 set(CMAKE_CXX_FLAGS "-no-pie")
 set(PROJECT_NAME "$ENV{EXE_TITLE}")
