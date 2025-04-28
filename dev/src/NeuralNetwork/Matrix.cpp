@@ -324,10 +324,11 @@ void Matrix::disp() const //Debug function
 	{
 		for (std::size_t j = 0; j < m_col; ++j)
 		{
-			std::cout << m_mat[i][j] << ",";
+			std::cout << m_mat[i][j] << " / ";
 		}
-		if(i<m_row-1) std::cout << std::endl;
+		std::cout << std::endl;
 	}
+	std::cout << "----------------------------------" <<  std::endl;
 }
 
 Matrix BroadCastAdd(const Matrix& A, const Matrix& B) {
