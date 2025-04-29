@@ -344,3 +344,123 @@ TEST(TestingMerge, one_column_matrix) {
 
     EXPECT_EQ(A==Matrix(100,1,6.f), true);
 }
+
+TEST(TestingTransposee, simple_transposee) {
+    std::vector<std::vector<float>> temp_A = {
+        {1.f,2.f,2.f},
+        {3.f,1.f,2.f},
+        {3.f,3.f,1.f}};
+
+    std::vector<std::vector<float>> temp_Res = {
+        {1.f,3.f,3.f},
+        {2.f,1.f,3.f},
+        {2.f,2.f,1.f}};
+
+    Matrix A(temp_A), Res(temp_Res);
+    A = A.transposee();
+
+    EXPECT_EQ(A==Res, true);
+}
+
+TEST(TestingTransposee, not_square_matrix_1) {
+    std::vector<std::vector<float>> temp_A = {
+        {1.f,2.f,2.f,2.f},
+        {3.f,1.f,2.f,2.f},
+        {3.f,3.f,1.f,2.f}};
+
+    std::vector<std::vector<float>> temp_Res = {
+        {1.f,3.f,3.f},
+        {2.f,1.f,3.f},
+        {2.f,2.f,1.f},
+        {2.f,2.f,2.f}};
+
+    Matrix A(temp_A), Res(temp_Res);
+    A = A.transposee();
+
+    EXPECT_EQ(A==Res, true);
+}
+
+TEST(TestingTransposee, not_square_matrix_2) {
+    std::vector<std::vector<float>> temp_A = {
+        {1.f,2.f,2.f},
+        {3.f,1.f,2.f},
+        {3.f,3.f,1.f},
+        {3.f,3.f,3.f}};
+
+    std::vector<std::vector<float>> temp_Res = {
+        {1.f,3.f,3.f,3.f},
+        {2.f,1.f,3.f,3.f},
+        {2.f,2.f,1.f,3.f}};
+
+    Matrix A(temp_A), Res(temp_Res);
+    A = A.transposee();
+
+    EXPECT_EQ(A==Res, true);
+}
+
+TEST(TestingTransposee, very_small_matrix) {
+    std::vector<std::vector<float>> temp_A = {
+        {1.f}};
+
+    std::vector<std::vector<float>> temp_Res = {
+        {1.f}};
+
+    Matrix A(temp_A), Res(temp_Res);
+    A = A.transposee();
+
+    EXPECT_EQ(A==Res, true);
+}
+
+TEST(TestingTransposee, column_matrix) {
+    std::vector<std::vector<float>> temp_A = {
+        {1.f},
+        {5.f},
+        {6.f},
+        {3.f}};
+
+    std::vector<std::vector<float>> temp_Res = {
+        {1.f, 5.f, 6.f, 3.f}};
+
+    Matrix A(temp_A), Res(temp_Res);
+    A = A.transposee();
+
+    EXPECT_EQ(A==Res, true);
+}
+
+TEST(TestingTransposee, row_matrix) {
+    std::vector<std::vector<float>> temp_A = {
+        {1.f, 5.f, 6.f, 3.f}};
+
+    std::vector<std::vector<float>> temp_Res = {
+        {1.f},
+        {5.f},
+        {6.f},
+        {3.f}};
+
+    Matrix A(temp_A), Res(temp_Res);
+    A = A.transposee();
+
+    EXPECT_EQ(A==Res, true);
+}
+
+TEST(TestingTransposee, empty_matrix) {
+    std::vector<std::vector<float>> temp_A = {};
+
+    std::vector<std::vector<float>> temp_Res = {};
+
+    Matrix A(temp_A), Res(temp_Res);
+    A = A.transposee();
+
+    EXPECT_EQ(A==Res, true);
+}
+
+TEST(TestingTransposee, symetric_matrix) {
+    std::vector<std::vector<float>> temp_A = {
+        {1.f,2.f,-5.f},
+        {2.f,4.f,3.f},
+        {-5.f,3.f,1.f}};
+
+    Matrix A(temp_A);
+
+    EXPECT_EQ(A.transposee()==A, true);
+}
