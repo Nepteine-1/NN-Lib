@@ -1,4 +1,4 @@
-# NN-Lib
+# NN-Library
 A library dedicated to the creation and training of neural networks, made from scratch.
 
 ## Required packages
