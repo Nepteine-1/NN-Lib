@@ -38,4 +38,13 @@ pipeline {
             }
         }
     }
+
+    post {
+        success {
+            echo 'Tout s\'est bien passé !'
+        }
+        failure {
+            echo 'Une erreur est survenue.'
+        }
+    }
 }
