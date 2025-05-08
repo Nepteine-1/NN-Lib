@@ -44,7 +44,7 @@ Then the binairies will appear in the "bin" directory.
 ### Create a neural network
 Create a new neural network.
 it is possible to choose the loss function. Currently, only BINARY_CROSS_ENTROPY is available.
-In the following example, an empty neural network with 2 entry neurons is created.
+In the following example, an empty neural network with 2 entry neurons is created:
 ```cpp
 // NeuralNetwork(const int number_of_features, const LossFunction loss_type);
 nn = new NeuralNetwork(2, LossFunction::BINARY_CROSS_ENTROPY);
