@@ -2,8 +2,6 @@
 # Change the following env variable to change the name of the executable generated with cmake
 export EXE_TITLE="SFML_App"
 
-# --------------------------------------
-
 export TARGET="$1"
 export BUILD_MODE="$2"
 export LIB_NAME="NeuralNetwork"
