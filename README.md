@@ -3,6 +3,7 @@ A library dedicated to the creation and training of neural networks, made from s
 
 ## Required packages
 ```bash
+sudo apt install g++
 sudo apt install cmake
 sudo apt install libsfml-dev
 ```
