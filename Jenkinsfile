@@ -6,7 +6,11 @@ pipeline {
             steps {
                 echo 'Building..'
                 sh '''
-                echo "doing build stuff.."
+                export TERM=xterm
+                
+                sh install.sh static release
+                sh install.sh example
+                ./example/Example
                 '''
                 
             }
