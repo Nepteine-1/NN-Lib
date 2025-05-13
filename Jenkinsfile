@@ -2,6 +2,7 @@ pipeline {
     agent any
     
     triggers {
+        // vérifier si un changement dans le repo est arrivé toutes les minutes
     	pollSCM('* * * * *')
     }
     
